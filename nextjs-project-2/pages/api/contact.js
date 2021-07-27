@@ -3,9 +3,6 @@ import { MongoClient } from 'mongodb';
 async function handler(req, res) {
     if(req.method === 'POST') {
         const { email, name, message } = req.body;
-        console.log('email:' + email);
-        console.log('name:' + name);
-        console.log('message:' + message);
 
         if(         // INVALID INPUT
             !email || 
