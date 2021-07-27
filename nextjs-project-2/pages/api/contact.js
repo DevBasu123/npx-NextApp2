@@ -1,4 +1,6 @@
-function handler(req, res) {
+import { MongoClient } from 'mongodb';
+
+async function handler(req, res) {
     if(req.method === 'POST') {
         const { email, name, message } = req.body;
         console.log('email:' + email);
@@ -22,8 +24,33 @@ function handler(req, res) {
             name,
             message
         };
-        console.log(newMessage);
-        res.status(201).json({message: 'Stored Successfully!', message: newMessage});
+
+        let client;
+        try{
+            const URI = `${process.env.MONGODB_DRIVER}://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER}.mongodb.net/${process.env.MONGODB_DATABASE}${process.env.MONGODB_OTHER_PARAMS}`;
+            client = await MongoClient.connect(URI);
+        }
+        catch(e) {
+            console.log(`Error connecting to DB:>>> ${e.message}`);
+            res.status(500).json({message: 'Error connecting to Database'});
+            return;
+        }
+
+        const db = client.db();
+        try{
+            const result = await db.collection('messages').insertOne(newMessage);
+            newMessage._id = result.insertedId;
+        }
+        catch(e) {
+            console.log(`Error saving your message:>>> ${e.message}`);
+            client.close();
+            res.status(500).json({message: 'Failed to save message!'});
+            return;
+        }
+
+        client.close();
+
+        res.status(201).json({message: 'Message Stored Successfully!', message: newMessage});
     }
 }
 
