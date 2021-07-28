@@ -2,6 +2,7 @@
 ## NextJS App-2
 
 > This work is done while learning NextJS.
+> 
 > Build a full-Blog A-to-Z.
 
 **Course:**  Next.js & React - The Complete Guide (incl. Two Paths!)
