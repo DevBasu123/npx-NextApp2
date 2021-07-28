@@ -1,5 +1,5 @@
 
-## NextJS App-2
+## Blog using NextJS.
 
 > This work is done while learning NextJS.
 > 
