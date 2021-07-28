@@ -3,7 +3,7 @@
 
 > This work is done while learning NextJS.
 > 
-> Build a full-Blog A-to-Z.
+> Build a full Blog A-to-Z.
 
 
 > **Course Name:**  Next.js & React - The Complete Guide (incl. Two Paths!)
